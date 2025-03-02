@@ -14,3 +14,8 @@ spring:
           lob:
             non_contextual_creation: true
     open-in-view: false # OSIV 설정 끄기
+services:
+  auth:
+    url: http://localhost:8090  # 인증 서비스 URL
+  noti:
+    url: http://localhost:8091  # 인증 서비스 URL

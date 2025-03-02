@@ -1,7 +1,7 @@
 package com.ll.here_is_paw_back_noti.domain.noti.controller;
 
 
-import com.ll.here_is_paw_back_noti.domain.member.entity.Member;
+import com.ll.here_is_paw_back_noti.domain.member.dto.MemberDto;
 import com.ll.here_is_paw_back_noti.domain.noti.entity.Noti;
 import com.ll.here_is_paw_back_noti.domain.noti.service.NotiService;
 import com.ll.here_is_paw_back_noti.domain.noti.service.SseService;
@@ -29,8 +29,8 @@ public class NotiController {
 //   알림 목록 조회
   @GetMapping
   public GlobalResponse<List<Noti>> getNotifications(
-      @CurrentUser Member member) {
-    Long memberId = member.getId();
+      @CurrentUser MemberDto memberDto) {
+    Long memberId = memberDto.getId();
     log.debug("memberId: {}", memberId);
     List<Noti> notifications = notiService.getAllNotifications(memberId);
     log.debug("notifications: {}", notifications.size());

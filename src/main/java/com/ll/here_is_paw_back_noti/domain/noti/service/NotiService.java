@@ -1,7 +1,7 @@
 package com.ll.here_is_paw_back_noti.domain.noti.service;
 
 
-import com.ll.here_is_paw_back_noti.domain.member.entity.Member;
+import com.ll.here_is_paw_back_noti.domain.member.dto.MemberDto;
 import com.ll.here_is_paw_back_noti.domain.member.service.MemberServiceClient;
 import com.ll.here_is_paw_back_noti.domain.noti.entity.Noti;
 import com.ll.here_is_paw_back_noti.domain.noti.kafka.dto.ImageMatchDto;
@@ -30,7 +30,7 @@ public class NotiService {
   public void sendToFindingNoti(Long receiverId, List<ImageMatchDto> matches) {
     matches.forEach(match -> {
       Long senderId = match.getTargetMemberId();
-      Member sender = memberServiceClient.getMemberById(senderId);
+      MemberDto sender = memberServiceClient.getMemberById(senderId);
 
       String message = String.format(
           "%s님이 유사도 %.1f%% 인 강아지를 발견했습니다.",
@@ -42,7 +42,7 @@ public class NotiService {
   }
 
   public void sendToMissingNoti(Long senderId, Long postId, List<ImageMatchDto> matches) {
-    Member sender = memberServiceClient.getMemberById(senderId);
+    MemberDto sender = memberServiceClient.getMemberById(senderId);
 
     matches.forEach(match -> {
       String message = String.format(
@@ -55,8 +55,8 @@ public class NotiService {
   }
 
   public void sendNotification(Long senderId, Long receiverId, String eventName, String message, Long postId) {
-    Member sender = memberServiceClient.getMemberById(senderId);
-    Member receiver = memberServiceClient.getMemberById(receiverId);
+    MemberDto sender = memberServiceClient.getMemberById(senderId);
+    MemberDto receiver = memberServiceClient.getMemberById(receiverId);
 
     Noti noti = Noti.builder()
         .sender(sender)

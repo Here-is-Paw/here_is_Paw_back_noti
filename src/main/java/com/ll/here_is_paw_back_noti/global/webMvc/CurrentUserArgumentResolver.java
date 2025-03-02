@@ -1,6 +1,6 @@
 package com.ll.here_is_paw_back_noti.global.webMvc;
 
-import com.ll.here_is_paw_back_noti.domain.member.entity.Member;
+import com.ll.here_is_paw_back_noti.domain.member.dto.MemberDto;
 import com.ll.here_is_paw_back_noti.domain.member.service.MemberServiceClient;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,7 +21,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
   @Override
   public boolean supportsParameter(MethodParameter parameter) {
     return parameter.hasParameterAnnotation(CurrentUser.class) &&
-        parameter.getParameterType().equals(Member.class);
+        parameter.getParameterType().equals(MemberDto.class);
   }
 
   @Override
@@ -41,15 +41,15 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
       log.debug("Found userId in header: {}", userId);
 
       // API Gateway에서 전달된 기본 정보로 Member 객체 생성
-      Member member = new Member();
-      member.setId(userId);
-      member.setUsername(webRequest.getHeader("X-Username"));
+      MemberDto memberDto = new MemberDto();
+      memberDto.setId(userId);
+      memberDto.setUsername(webRequest.getHeader("X-Username"));
 
       // 필요에 따라 MemberService에서 상세 정보 로드 (선택적)
       // 아래 코드는 상세 정보가 필요할 때 주석 해제
       // return memberServiceClient.getMemberById(userId);
 
-      return member;
+      return memberDto;
     } catch (NumberFormatException e) {
       log.error("Invalid userId format: {}", userIdStr, e);
       return null;
