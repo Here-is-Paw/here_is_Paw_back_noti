@@ -29,6 +29,12 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
       MethodParameter parameter, ModelAndViewContainer mavContainer,
       NativeWebRequest webRequest, WebDataBinderFactory binderFactory
   ) {
+
+    // 모든 헤더 출력
+    webRequest.getHeaderNames().forEachRemaining(headerName -> {
+      log.debug("Header: {} = {}", headerName, webRequest.getHeader(headerName));
+    });
+
     String userIdStr = webRequest.getHeader("X-User-Id");
 
     if (userIdStr == null) {

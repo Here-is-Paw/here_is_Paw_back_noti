@@ -22,8 +22,11 @@ public class CustomWebMvcConfig implements WebMvcConfigurer {
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/api/**")
-        .allowedOrigins("https://cdpn.io", "http://localhost:5173",
-            "https://www.pawpaw.kknaks.site", "https://pawpaw.kknaks.site")
+        .allowedOrigins(
+            "http://localhost:8001",  // API 게이트웨이 추가
+            "http://localhost:5173",
+            "https://www.pawpaw.kknaks.site"
+        )
         .allowedMethods("*")
         .allowedHeaders("*")
         .allowCredentials(true);
