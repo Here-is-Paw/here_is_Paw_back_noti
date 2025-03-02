@@ -1,11 +1,9 @@
 package com.ll.here_is_paw_back_noti.domain.noti.entity;
 
-import com.ll.here_is_paw_back_noti.domain.noti.person.entity.Person;
+import com.ll.here_is_paw_back_noti.domain.member.entity.Member;
 import com.ll.here_is_paw_back_noti.global.base.BaseEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,13 +18,11 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class Noti extends BaseEntity {
 
-  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "sender_id")
-  private Person sender;
+  private Member sender;
 
-  @ManyToOne(fetch = FetchType.EAGER)
   @JoinColumn(name = "receiver_id")
-  private Person receiver;
+  private Member receiver;
 
   private String eventName;
 

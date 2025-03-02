@@ -1,13 +1,11 @@
 package com.ll.here_is_paw_back_noti.domain.noti.service;
 
 
+import com.ll.here_is_paw_back_noti.domain.member.entity.Member;
+import com.ll.here_is_paw_back_noti.domain.member.service.MemberServiceClient;
 import com.ll.here_is_paw_back_noti.domain.noti.entity.Noti;
 import com.ll.here_is_paw_back_noti.domain.noti.kafka.dto.ImageMatchDto;
-import com.ll.here_is_paw_back_noti.domain.noti.person.entity.Person;
-import com.ll.here_is_paw_back_noti.domain.noti.person.service.PersonService;
 import com.ll.here_is_paw_back_noti.domain.noti.repository.NotiRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,35 +25,12 @@ public class NotiService {
   private final SseService sseService;
 
   //카프카 가면 없어질 것들
-  private final PersonService personService;
-  private final MemberService memberService;
-
-  @PersistenceContext
-  private EntityManager entityManager;
-
-//  public void SendToFindingNoti(Long receiverId, List<ImageMatchDto> matches) {
-//    matches.forEach(match ->{
-//      Noti noti = Noti.builder()
-//          .sender(personService.findById(match.getTargetMemberId()))
-//          .receiver(personService.findById(receiverId))
-//          .eventName("imageMatch")
-//          .message(String.format(
-//              "%s님이 유사도 %.1f%% 인 강아지를 발견했습니다."
-//              , personService.findById(match.getTargetMemberId()).getNickname()
-//              , match.getSimilarity() * 100))
-//          .postId(match.getPostId())
-//          .read(false)
-//          .build();
-//
-//      notiRepository.save(noti);
-//      sseService.sendNoti(receiverId, "noti", noti);
-//    });
-//  }
+  private final MemberServiceClient memberServiceClient;
 
   public void sendToFindingNoti(Long receiverId, List<ImageMatchDto> matches) {
     matches.forEach(match -> {
       Long senderId = match.getTargetMemberId();
-      Person sender = personService.findById(senderId);
+      Member sender = memberServiceClient.getMemberById(senderId);
 
       String message = String.format(
           "%s님이 유사도 %.1f%% 인 강아지를 발견했습니다.",
@@ -67,7 +42,7 @@ public class NotiService {
   }
 
   public void sendToMissingNoti(Long senderId, Long postId, List<ImageMatchDto> matches) {
-    Person sender = personService.findById(senderId);
+    Member sender = memberServiceClient.getMemberById(senderId);
 
     matches.forEach(match -> {
       String message = String.format(
@@ -80,8 +55,8 @@ public class NotiService {
   }
 
   public void sendNotification(Long senderId, Long receiverId, String eventName, String message, Long postId) {
-    Person sender = personService.findById(senderId);
-    Person receiver = personService.findById(receiverId);
+    Member sender = memberServiceClient.getMemberById(senderId);
+    Member receiver = memberServiceClient.getMemberById(receiverId);
 
     Noti noti = Noti.builder()
         .sender(sender)
