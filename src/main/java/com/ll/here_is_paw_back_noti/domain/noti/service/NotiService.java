@@ -59,6 +59,8 @@ public class NotiService {
     MemberDto receiver = memberServiceClient.getMemberById(receiverId);
 
     Noti noti = Noti.builder()
+        .senderId(sender.getId())
+        .receiverId(receiver.getId())
         .sender(sender)
         .receiver(receiver)
         .eventName(eventName)

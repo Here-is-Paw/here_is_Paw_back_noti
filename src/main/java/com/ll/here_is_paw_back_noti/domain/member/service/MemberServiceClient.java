@@ -24,7 +24,7 @@ public class MemberServiceClient {
       log.info("Member Service URL: {}", memberServiceUrl);
 
       // 전체 URL 생성 및 로깅
-      String url = UriComponentsBuilder.fromHttpUrl(memberServiceUrl)
+      String url = UriComponentsBuilder.fromUriString(memberServiceUrl)
           .path("/api/v1/members/{id}")
           .buildAndExpand(id)
           .toUriString();
