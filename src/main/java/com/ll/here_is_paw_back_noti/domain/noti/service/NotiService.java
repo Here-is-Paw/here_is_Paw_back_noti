@@ -24,7 +24,6 @@ public class NotiService {
   private final NotiRepository notiRepository;
   private final SseService sseService;
 
-  //카프카 가면 없어질 것들
   private final MemberServiceClient memberServiceClient;
 
   public void sendToFindingNoti(Long receiverId, List<ImageMatchDto> matches) {

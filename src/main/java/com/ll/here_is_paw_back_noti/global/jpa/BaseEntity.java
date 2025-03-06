@@ -1,4 +1,4 @@
-package com.ll.here_is_paw_back_noti.global.base;
+package com.ll.here_is_paw_back_noti.global.jpa;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 import static lombok.AccessLevel.PROTECTED;
@@ -39,5 +39,5 @@ public class BaseEntity {
 
     @CreatedDate
     @Getter
-    private LocalDateTime modifiedAt;
+    private LocalDateTime modifiedDate;
 }
