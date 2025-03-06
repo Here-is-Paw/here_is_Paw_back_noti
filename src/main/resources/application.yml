@@ -1,5 +1,5 @@
 server:
-  port: 8091
+  port: 8097
 spring:
   output:
     ansi:
@@ -26,6 +26,14 @@ springdoc:
     path: /swagger-ui.html  # Swagger UI 경로
   api-docs:
     path: /api-docs        # API 문서 경로
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
 custom:
   dev:
     cookieDomain: localhost
