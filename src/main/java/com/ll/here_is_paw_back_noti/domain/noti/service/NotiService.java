@@ -53,15 +53,18 @@ public class NotiService {
     });
   }
 
+  @Transactional
   public void sendNotification(Long senderId, Long receiverId, String eventName, String message, Long postId) {
     MemberDto sender = memberServiceClient.getMemberById(senderId);
     MemberDto receiver = memberServiceClient.getMemberById(receiverId);
 
     Noti noti = Noti.builder()
-        .senderId(sender.getId())
-        .receiverId(receiver.getId())
-        .sender(sender)
-        .receiver(receiver)
+        .senderId(senderId)
+        .senderNickname(sender.getNickname())
+        .senderAvatar(sender.getAvatar())
+        .receiverId(receiverId)
+        .receiverNickname(receiver.getNickname())
+        .receiverAvatar(receiver.getAvatar())
         .eventName(eventName)
         .message(message)
         .postId(postId)
@@ -76,22 +79,19 @@ public class NotiService {
   // 특정 알림 읽음 처리
   @Transactional
   public void markAsRead(Long notificationId) {
-    notiRepository.findById(notificationId).ifPresent(notification -> {
-      notification.markAsRead();
-    });
+    notiRepository.findById(notificationId).ifPresent(Noti::markAsRead);
   }
 
   public List<Noti> getAllNotifications(Long memberId) {
     return notiRepository.findByReceiverIdOrderByCreatedAtDesc(memberId);
   }
 
-
-  // 사용자의 모든 알림 읽음 처리
-//  public void markAllAsRead(String userId) {
-//    List<Noti> notifications = notiRepository.findByUserIdAndReadOrderByCreatedAtDesc(userId, false);
-//    for (Noti notification : notifications) {
-//      notification.markAsRead();
-//    }
-//    notiRepository.saveAll(notifications);
-//  }
+  @Transactional
+  public void markAllAsRead(Long userId) {
+    List<Noti> notifications = notiRepository.findByReceiverId(userId);
+    for (Noti notification : notifications) {
+      notification.setRead(true);
+    }
+    notiRepository.saveAll(notifications);
+  }
 }

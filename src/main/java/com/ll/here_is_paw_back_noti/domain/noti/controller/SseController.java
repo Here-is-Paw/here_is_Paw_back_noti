@@ -2,7 +2,7 @@ package com.ll.here_is_paw_back_noti.domain.noti.controller;
 
 import com.ll.here_is_paw_back_noti.domain.member.dto.MemberDto;
 import com.ll.here_is_paw_back_noti.domain.noti.service.SseService;
-import com.ll.here_is_paw_back_noti.global.webMvc.CurrentUser;
+import com.ll.here_is_paw_back_noti.global.webMvc.LoginUser;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -20,7 +20,7 @@ public class SseController {
   private final SseService sseService;
 
   @GetMapping(value = "/connect", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-  public ResponseEntity<SseEmitter> add(@CurrentUser MemberDto memberDto) {
+  public ResponseEntity<SseEmitter> add(@LoginUser MemberDto memberDto) {
     Long memberId = memberDto.getId();
     return ResponseEntity.ok(sseService.add(memberId.toString()));
   }

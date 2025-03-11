@@ -8,6 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NotiRepository extends JpaRepository<Noti, Long> {
-//  List<Noti> findByUserIdAndReadOrderByCreatedAtDesc(String userId, boolean read);
-List<Noti> findByReceiverIdOrderByCreatedAtDesc(Long receiverId);
+  List<Noti> findByReceiverId(Long receiverId);
+  List<Noti> findByReceiverIdOrderByCreatedAtDesc(Long receiverId);
 }
