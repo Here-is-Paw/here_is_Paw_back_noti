@@ -94,4 +94,9 @@ public class NotiService {
     }
     notiRepository.saveAll(notifications);
   }
+
+  @Transactional
+  public void deleteNotification(Long notiId) {
+    notiRepository.deleteById(notiId);
+  }
 }
