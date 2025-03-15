@@ -7,20 +7,21 @@ spring:
   profiles:
     active: dev
     include: secret
-  kafka:
-    bootstrap-servers: 43.203.223.85:19092
-    producer:
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
-    consumer:
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: com.ll.hereispaw.domain.noti.dto.kafka
-        spring.json.use.type.headers: false
+#  kafka:
+##    bootstrap-servers: 43.203.223.85:19092
+#    bootstrap-servers: localhost:19092
+#    producer:
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#    consumer:
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring.json.trusted.packages: com.ll.hereispaw.domain.noti.dto.kafka
+#        spring.json.use.type.headers: false
 logging:
   level:
     root: info
-    com.ll.hereispaw : debug
-    org.hibernate.spatial: debug
+    com.ll.here_is_paw_back_noti : debug
+#    org.hibernate.spatial: debug
 springdoc:
   swagger-ui:
     path: /swagger-ui.html  # Swagger UI 경로

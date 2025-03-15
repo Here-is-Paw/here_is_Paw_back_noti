@@ -31,10 +31,10 @@ public class LoginUserArgumentResolver implements HandlerMethodArgumentResolver 
         NativeWebRequest webRequest, WebDataBinderFactory binderFactory
     ) {
 
-        // 모든 헤더 출력
-        webRequest.getHeaderNames().forEachRemaining(headerName -> {
-            log.debug("Header: {} = {}", headerName, webRequest.getHeader(headerName));
-        });
+//        // 모든 헤더 출력
+//        webRequest.getHeaderNames().forEachRemaining(headerName -> {
+//            log.debug("Header: {} = {}", headerName, webRequest.getHeader(headerName));
+//        });
 
         String userIdStr = webRequest.getHeader("X-User-Id");
 
