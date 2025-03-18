@@ -1,6 +1,5 @@
 package com.ll.here_is_paw_back_noti.global.initData;
 
-import com.ll.here_is_paw_back_noti.domain.noti.entity.Noti;
 import com.ll.here_is_paw_back_noti.domain.noti.repository.NotiRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,22 +30,22 @@ public class InitData {
       @Transactional
       @Override
       public void run(ApplicationArguments args) {
-        for (int i = 0; i < 10; i++) {
-          Noti noti = Noti.builder()
-              .senderId((long) i)
-              .senderNickname("sender" + i)
-              .senderAvatar("")
-              .receiverId(3L)
-              .receiverNickname("receiver")
-              .receiverAvatar("")
-              .eventName("imageMatch")
-              .message("message")
-              .postId(1L)
-              .read(false)
-              .build();
-
-          notiRepository.save(noti);
-        }
+//        for (int i = 0; i < 10; i++) {
+//          Noti noti = Noti.builder()
+//              .senderId((long) i)
+//              .senderNickname("sender" + i)
+//              .senderAvatar("")
+//              .receiverId(3L)
+//              .receiverNickname("receiver")
+//              .receiverAvatar("")
+//              .eventName("imageMatch")
+//              .message("message")
+//              .postId(1L)
+//              .read(false)
+//              .build();
+//
+//          notiRepository.save(noti);
+//        }
 
 //                 if (memberService.count() > 0)  return;
 //                 Member member1 = memberService.signup("user1", "1234", "유저1", "");
